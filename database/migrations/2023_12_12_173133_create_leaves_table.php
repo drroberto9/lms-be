@@ -22,8 +22,8 @@ return new class extends Migration
             $table->datetime('date_approved')->nullable();
             $table->datetime('start_date');
             $table->datetime('end_date');
-            $table->enum('type', ['Vacation', 'Forced', 'Sick', 'Maternity', 'Paternity', 'Special Privilege', 'Solo Parent', 'Study', 'VAWC', 'Rehabilitation', 'Special Leave Benefits For Women', 'Special Emergency', 'Exit Pass']);
-            $table->enum('status', ['Waiting', 'Submitted To Admin', 'Approved', 'Rejected']);
+            $table->enum('type', ['Vacation', 'Forced', 'Sick', 'Maternity', 'Paternity', 'Special Privilege', 'Solo Parent', 'Study', 'VAWC', 'Rehabilitation', 'Special Leave Benefits For Women', 'Calamity', 'Exit Pass']);
+            $table->enum('status', ['For HR', 'For Office Head', 'For Dean', 'For Vice President Academic Affairs', 'For Vice President for Administration', 'For College President', 'Approved With Pay', 'Approved Without Pay', 'Rejected']);
             $table->longText('remarks')->nullable();
             $table->string('attachment_name')->nullable();
             $table->string('attachment_type')->nullable();

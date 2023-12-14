@@ -16,7 +16,7 @@ class ImportUserData implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
-        $columns = ['employee_id', 'first_name', 'last_name', 'middle_name', 'email', 'employment_status', 'job_title', 'department', 'date_of_employment', 'role', 'leave_credit'];
+        $columns = ['employee_id', 'first_name', 'last_name', 'middle_name', 'email', 'employment_status', 'job_title', 'department', 'date_of_employment', 'role', 'forced', 'vacation', 'sick', 'maternity', 'paternity', 'special_privilege', 'solo_parent', 'study', 'vaws', 'rehabilitation', 'special_leave_benefits_for_women', 'calamity', 'exit_pass'];
         
         $allBlank = true;
         foreach ($columns as $column) {
@@ -30,7 +30,7 @@ class ImportUserData implements ToModel, WithHeadingRow
         if ($allBlank) {
             return null;
         }
-
+        
         $user = User::create([
             'employee_id' => $row['employee_id'],
             'first_name' => $row['first_name'],
@@ -39,9 +39,6 @@ class ImportUserData implements ToModel, WithHeadingRow
             'email'=> $row['email'],
             'password'=> $row['employee_id'],
         ]);
-
-        echo $user['id'];
-        echo $user->id;
 
         Department::create([
             'user_id'=> $user['id'],
@@ -56,10 +53,23 @@ class ImportUserData implements ToModel, WithHeadingRow
             'role'=> $row['role'],
         ]);
 
-        LeaveCredit::create([
-            'user_id'=> $user['id'],
-            'leave_credit'=> $row['leave_credit'],
-        ]);
+        if ($row['role'] != 'Employee') {
+            Role::create([
+                'user_id'=> $user['id'],
+                'role'=> 'Employee',
+            ]);
+        }
+
+        $types = ['Forced', 'Vacation', 'Sick', 'Maternity', 'Paternity', 'Special Privilege', 'Solo Parent', 'Study', 'VAWC', 'Rehabilitation', 'Special Leave Benefits For Women', 'Calamity', 'Exit Pass'];
+
+        foreach ($types as $index => $type) {
+            LeaveCredit::create([
+                'user_id' => $user['id'],
+                'type' => $type,
+                'leave_credit'=> $row[$columns[($index + 10)]],
+            ]);
+        }
+        
 
         return $user;
     }

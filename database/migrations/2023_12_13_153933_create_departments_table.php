@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('department_name');
             $table->enum('employment_status', ['Contract of Service', 'Permanent']);
             $table->date('date_of_employment');
-            $table->enum('job_title', ['Faculty', 'Office Staff', 'Utility Personnel', 'Watchman', 'Driver']);
+            $table->enum('job_title', ['Faculty', 'Office Staff', 'Utility Personnel', 'Watchman', 'Driver', 'College President', 'Dean', 'Office Head', 'Vice President for Administration', 'Vice President for Academic Affairs', 'HR Officer']);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -16,7 +16,7 @@ class LeaveCredit extends Model
     protected $fillable = [
         'user_id',
         'leave_credit',
-        'leave_id'
+        'type'
     ];
 
     public function user()

@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->float('leave_credit', 8, 2);
-            $table->unsignedBigInteger('leave_id')->nullable();
-            $table->foreign('leave_id')->references('id')->on('leaves')->onDelete('cascade');
+            $table->integer('leave_credit');
+            $table->enum('type', ['Vacation', 'Forced', 'Sick', 'Maternity', 'Paternity', 'Special Privilege', 'Solo Parent', 'Study', 'VAWC', 'Rehabilitation', 'Special Leave Benefits For Women', 'Calamity', 'Exit Pass']);
             $table->softDeletes();
             $table->timestamps();
         });
